@@ -59,6 +59,7 @@ own_. [sherifabdlnaby/elastdocker][elastdocker] is one example among others of p
    * [How to configure Elasticsearch](#how-to-configure-elasticsearch)
    * [How to configure Kibana](#how-to-configure-kibana)
    * [How to configure Logstash](#how-to-configure-logstash)
+   * [How to configure Filebeat](#how-to-configure-filebeat)
    * [How to disable paid features](#how-to-disable-paid-features)
    * [How to scale out the Elasticsearch cluster](#how-to-scale-out-the-elasticsearch-cluster)
    * [How to reset a password programmatically](#how-to-reset-a-password-programmatically)
@@ -306,6 +307,15 @@ Logstash will be expecting a [`log4j2.properties`][log4j-props] file for its own
 Please refer to the following documentation page for more details about how to configure Logstash inside Docker
 containers: [Configuring Logstash for Docker][ls-docker].
 
+### How to configure Filebeat
+
+The Filebeat configuration is stored in [`filebeat/config/filebeat.yml`][config-ls].
+
+It is also possible to map the entire `config` directory instead of a single file.
+
+Please refer to the following documentation page for more details about how to configure Filebeat inside Docker
+containers: [Configuring Filebeat for Docker][fb-docker].
+
 ### How to disable paid features
 
 Switch the value of Elasticsearch's `xpack.license.self_generated.type` option from `trial` to `basic` (see [License
@@ -448,6 +458,7 @@ instead of `elasticsearch`.*
 [es-docker]: https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
 [kbn-docker]: https://www.elastic.co/guide/en/kibana/current/docker.html
 [ls-docker]: https://www.elastic.co/guide/en/logstash/current/docker-config.html
+[fb-docker]: https://www.elastic.co/guide/en/beats/filebeat/current/running-on-docker.html
 
 [log4j-props]: https://github.com/elastic/logstash/tree/7.6/docker/data/logstash/config
 [esuser]: https://github.com/elastic/elasticsearch/blob/7.6/distribution/docker/src/docker/Dockerfile#L23-L24

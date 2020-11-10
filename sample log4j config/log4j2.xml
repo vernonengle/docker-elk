@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <RollingFile
+                name="PEXA"
+                fileName="${sys:jboss.server.log.dir}/pexa.log"
+                filePattern="${sys:jboss.server.log.dir}/pexa.log.%i"
+                ignoreExceptions="true">
+            <PatternLayout>
+                <Pattern>[%X{userName} : %X{sessionID}] %d %-5p [%c] %x %msg%ex%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="4" />
+        </RollingFile>
+        <RollingFile
+                name="BusinessTx"
+                fileName="${sys:jboss.server.log.dir}/json/business-tx.log"
+                filePattern="${sys:jboss.server.log.dir}/archive/business-tx.log.%i"
+                ignoreExceptions="true">
+            <MarkerFilter marker="ENTITY_LISTENER" onMatch="DENY" onMismatch="ACCEPT"/>
+            <JsonLayout complete="false" properties="true" compact="true" eventEol="true"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="4" />
+        </RollingFile>
+        <RollingFile
+                name="EntityUpdates"
+                fileName="${sys:jboss.server.log.dir}/json/entityUpdates.log"
+                filePattern="${sys:jboss.server.log.dir}/entityUpdates.log.%i"
+                ignoreExceptions="true">
+            <MarkerFilter marker="ENTITY_LISTENER" onMatch="ACCEPT" onMismatch="DENY"/>
+            <JsonLayout complete="false" properties="true" compact="true" eventEol="true"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="4" />
+        </RollingFile>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="heyhey  %d %-5p [%c{2}] %X %marker %maxLen{%msg}{160}%ex%n" />
+        </Console>
+        <Async name="PEXA-ASYNC" bufferSize="1024">
+            <AppenderRef ref="PEXA"/>
+        </Async>
+        <Async name="BusinessTx-ASYNC" bufferSize="1024">
+            <AppenderRef ref="BusinessTx"/>
+        </Async>
+    </Appenders>
+    <Loggers>
+        <!-- Application Loggers -->
+        <Logger name="au.necdl.pexa" level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="BusinessTx-ASYNC" />
+            <appender-ref ref="EntityUpdates" />
+        </Logger>
+
+        <Logger name="au.com.necdl" level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="BusinessTx-ASYNC" />
+            <appender-ref ref="EntityUpdates" />
+        </Logger>
+
+        <Logger name="au.necdl.pexa.logging.LoggingAdvice" level="INFO" additivity="false">
+            <appender-ref ref="BusinessTx-ASYNC" />
+            <appender-ref ref="EntityUpdates" />
+        </Logger>
+
+        <Logger name="au.necdl.pexa.core.LoggingAdvice" level="DEBUG" additivity="false">
+            <appender-ref ref="BusinessTx-ASYNC" />
+            <appender-ref ref="EntityUpdates" />
+        </Logger>
+
+        <Logger name="org.springframework.transaction" level="TRACE" additivity="false">
+            <!-- <appender-ref ref="CONSOLE" />          -->
+            <appender-ref ref="BusinessTx-ASYNC" />
+            <appender-ref ref="EntityUpdates" />
+        </Logger>
+
+        <Logger name="au.necdl.pexa.logging" level="DEBUG" additivity="false">
+            <appender-ref ref="BusinessTx-ASYNC" />
+            <appender-ref ref="EntityUpdates" />
+        </Logger>
+
+        <!-- 3rdparty Loggers -->
+        <Logger name="org.springframework" level="ERROR" additivity="false">
+            <appender-ref ref="CONSOLE" />
+        </Logger>
+        <Logger name="org.hibernate" level="INFO" additivity="false">
+            <!-- <appender-ref ref="CONSOLE" />   -->
+            <appender-ref ref="BusinessTx-ASYNC" />
+        </Logger>
+        <Logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
+            <!-- <appender-ref ref="CONSOLE" />   -->
+            <appender-ref ref="BusinessTx-ASYNC" />
+        </Logger>
+        <Logger name="org.hibernate.pretty" level="TRACE" additivity="false">
+            <!-- <appender-ref ref="CONSOLE" />   -->
+            <appender-ref ref="BusinessTx-ASYNC" />
+        </Logger>
+        <Logger name="org.hibernate.type.descriptor.sql" level="TRACE" additivity="false">
+            <!-- <appender-ref ref="CONSOLE" />   -->
+            <appender-ref ref="BusinessTx-ASYNC" />
+        </Logger>
+        <Logger name="org.springframework.orm.jpa" level="DEBUG" additivity="false">
+            <!-- <appender-ref ref="CONSOLE" />   -->
+            <appender-ref ref="BusinessTx-ASYNC" />
+        </Logger>
+    </Loggers>
+</Configuration>

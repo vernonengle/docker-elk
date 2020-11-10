@@ -76,6 +76,7 @@ services:
         ELK_VERSION: $ELK_VERSION
     container_name: filebeat
     volumes:
+#Change this path to your json log path
       - "/Users/vernon.g.engle/projects/development-setup/jboss-eap/jboss-eap-7.2.3/standalone/log/json/:/usr/logs:rw"
       - "./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml:rw"
       - "/var/lib/docker/containers:/var/lib/docker/containers:rw"
