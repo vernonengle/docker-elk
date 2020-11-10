@@ -309,7 +309,7 @@ containers: [Configuring Logstash for Docker][ls-docker].
 
 ### How to configure Filebeat
 
-The Filebeat configuration is stored in [`filebeat/config/filebeat.yml`][config-ls].
+The Filebeat configuration is stored in [`filebeat/config/filebeat.yml`][config-fb].
 
 It is also possible to map the entire `config` directory instead of a single file.
 
@@ -454,6 +454,7 @@ instead of `elasticsearch`.*
 [config-es]: ./elasticsearch/config/elasticsearch.yml
 [config-kbn]: ./kibana/config/kibana.yml
 [config-ls]: ./logstash/config/logstash.yml
+[config-fb]: ./filebeat/config/filebeat.yml
 
 [es-docker]: https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
 [kbn-docker]: https://www.elastic.co/guide/en/kibana/current/docker.html
